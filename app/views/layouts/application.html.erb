@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BookReviewSystem</title>
+    <title>Book Review System</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="home">
+    <%= render "layouts/header" %>
+	  <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= render "layouts/left_menu_admin" %>
+    <div class="container" id="container">
+      <%= yield %>
+    </div>  
   </body>
 </html>

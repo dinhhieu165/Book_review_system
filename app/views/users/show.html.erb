@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 toppad" >
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title center"><%= @user.name %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center">
+              <%= gravatar_for @user, {size: Settings.avatar.large_size} %>
+            </div>
+            <div class=" col-md-9 col-lg-9 ">
+              <table class="table table-user-information">
+                <tbody>
+                <tr>
+                  <td><%= t ".email" %></td>
+                  <td><%= @user.email %></td>
+                </tr>
+                <tr>
+                  <td><%= t ".created_date" %></td>
+                  <td><%= @user.created_at
+                    .strftime(t "datetime_format.date_and_time") %></td>
+                </tr>
+                <tr>
+                  <td><%= t "follow.relationship" %></td>
+                  <td><%= render "shared/stats" %></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <%= render "follow_form" if !current_user.nil? %>
+          <%= mail_to @user.email, class: "btn btn-sm btn-primary" do %>
+              <i class="glyphicon glyphicon-envelope"></i>
+              <%= t ".send_mail" %>
+          <% end %>
+          <span class="pull-right">
+            <% if current_user == @user %>
+              <%= link_to edit_user_path(@user),
+                class: "btn btn-sm btn-warning" do %>
+                <i class="glyphicon glyphicon-edit"></i>
+                  <%= t ".edit_button" %>
+              <% end %>
+            <% end %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="accordion" class="user_profile_accordion" role="tablist"
+  aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="box_heading">
+      <a data-toggle="collapse" data-parent="#accordion"
+        href="#tab_favorite_books" aria-expanded="true"
+        aria-controls="tab_favorite_books">
+        <%= t "users.favorite_book" %>
+      </a>
+    </div>
+    <div id="tab_favorite_books" class="panel-collapse collapse in"
+      role="tabpanel">
+      <div id="fav_books_list_wrapper">
+        <div id="fav_books_list">
+          <%= render partial: "book_item", collection: @favorite_books %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="box_heading">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+        href="#tab_reading_history" aria-expanded="false"
+        aria-controls="tab_reading_history">
+        <%= t "users.reading_history" %>
+      </a>
+    </div>
+    <div id="tab_reading_history" class="panel-collapse collapse"
+      role="tabpanel">
+      <div id="fav_books_list_wrapper">
+        <div id="fav_books_list">
+          <%= render partial: "book_item", collection: @reading_history_books %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

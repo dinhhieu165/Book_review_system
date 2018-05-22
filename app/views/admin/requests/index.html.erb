@@ -1,0 +1,88 @@
+<%= provide :title, t("admin.requests.index.title") %>
+<div id="books">
+  <div class="row padding-top-50">
+    <div class="col-lg-12 book-form-search">
+      <%= search_form_for @search, url: admin_requests_path do |f| %>
+        <%= f.condition_fields do |condition| %>
+          <div class="col-lg-3">
+            <%= condition.attribute_fields do |attribute| %>
+              <%= attribute.attribute_select associations: [:user, :book] %>
+            <% end %>
+          </div>
+          <div class="col-lg-3">
+            <%= condition.predicate_select %>
+          </div>
+          <div class="col-lg-3">
+            <%= condition.value_fields do |value| %>
+              <%= value.text_field :value %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="col-lg-3">
+          <%= f.submit t("admin.search"),
+            class: "btn btn-default books-btn-search" %>
+        </div>
+        <div class="col-lg-12 padding-0">
+          <%= f.sort_fields do |sort| %>
+            <%= sort.sort_select %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row padding-top-50">
+    <div class="col-lg-12">
+      <table class="table table-bordered book-table">
+        <thead>
+          <tr>
+            <th class="width-10"><%= t "admin.books.index.numbers" %></th>
+            <th class="width-20"><%= t "admin.requests.index.user" %></th>
+            <th class="width-30"><%= t "admin.requests.index.book" %></th>
+            <th class="width-10"><%= t "admin.requests.index.status" %></th>
+            <th class="width-10"><%= t "admin.requests.index.created_at" %></th>
+            <th class="width-10"><%= t "admin.requests.index.approve" %></th>
+            <th class="width-10"><%= t "admin.requests.index.reject" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @requests.each_with_index do |request, index| %>
+            <tr>
+              <td><%= increase_one index %></td>
+              <td><%= request.user.name %></td>
+              <td><%= request.book.title %></td>
+              <td class="text-center status">
+                <% if request.status == Settings.requests.status[:waiting] %>
+                  <span class="btn btn-warning width-80">
+                    <%= request.status %>
+                  </span>
+                <% elsif request.status == Settings.requests.status[:approved] %>
+                  <span class="btn btn-success width-80">
+                    <%= request.status %>
+                  </span>
+                <% elsif request.status == Settings.requests.status[:rejected] %>
+                  <span class="btn btn-danger width-80">
+                    <%= request.status %>
+                  </span>
+                <% end %>
+              </td>
+              <td><%= request.created_at %></td>
+              <td class="text-center">
+                <%= button_tag t("admin.requests.index.approve"),
+                  onClick: "updateStatusRequest(this, #{request.id})",
+                  class: "btn btn-success width-80" %>
+              </td class="text-center">
+              <td>
+                <%= button_tag t("admin.requests.index.reject"),
+                  onClick: "updateStatusRequest(this, #{request.id})",
+                  class: "btn btn-danger width-80" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-12 text-center">
+      <%= paginate @requests, theme: "twitter-bootstrap-3" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<% provide :title, t("books.index.title") %>
+<div id="books">
+  <div class="div-search">
+    <div class="row">
+      <div class="col-lg-12">
+        <%= search_form_for @q, url: books_path, method: :post do |f| %>
+          
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-10 padding-top-20">
+        <div class="col-lg-12 main-content">
+          <% @books.in_groups_of(Settings.books_per_row, false).each do
+            |book_groups| %>
+            <div class="col-lg-12">
+              <% book_groups.each do |book| %>
+              <div class="col-lg-3 padding-2">
+                <div class="col-lg-12 book-item">
+                  <%= link_to book do %>
+                    <%= image_tag("#{book.image.url}",
+                      class: "book-item-img") %>
+                  <% end %>
+                  <div class="col-lg-12 padding-2">
+                    <ul class="book-item-list">
+                      <li <%= "class=favorited" if book
+                        .is_favorite_of_user? current_user %>>
+                        <i class="glyphicon glyphicon-heart btn_favorite"
+                          href="<%= marks_path %>"
+                          data-user-id="<%= current_user.id %>"
+                          data-book-id="<%= book.id %>"
+                          data-is-favorite="<%= book
+                            .is_favorite_of_user? current_user %>"></i>
+                      </li>
+                      <li <%= "class=reading" if book
+                        .is_reading_of_user? current_user %>>
+                        <i class="glyphicon glyphicon-eye-open btn_reading"
+                          href="<%= marks_path %>"
+                          data-user-id="<%= current_user.id %>"
+                          data-book-id="<%= book.id %>"
+                          data-next-status="<%=
+                            book.next_status_of_user current_user,
+                              Settings.mark_status.reading %>"></i>
+                      </li>
+                      <li <%= "class=read" if book
+                        .is_read_of_user? current_user %>>
+                        <i class="glyphicon glyphicon-check btn_read"
+                          href="<%= marks_path %>"
+                          data-user-id="<%= current_user.id %>"
+                          data-book-id="<%= book.id %>"
+                          data-next-status="<%=
+                            book.next_status_of_user current_user,
+                              Settings.mark_status.read %>"></i>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-12 padding-2">
+                    <h5 class="margin-0 book-item-title">
+                      <%= link_to book.title, book_path(book) %>
+                    </h5>
+                  </div>
+                  <div class="col-lg-12 padding-2">
+                    <span class="book-item-price">
+                      <%= book.price %> d
+                    </span>
+                  </div>
+                  <div class="col-lg-12 padding-2">
+                    Quality : <%= rating_for book, "quality", disable_after_rate: true %>
+                  </div>
+                  <div class="col-lg-12 padding-2">
+                    Content : <%= rating_for book, "content", disable_after_rate: true  %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-lg-12 text-center">
+          <%= paginate @books, theme: "twitter-bootstrap-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

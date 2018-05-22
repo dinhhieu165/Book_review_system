@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+  <div class="box_heading activity_heading">
+    <%= t "activity.title" %>
+  </div>
+  <div id="activities_wrapper">
+    <%= render partial: "static_pages/activity",
+      collection: @activities, as: "activity" %>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+    <h1><%= t "Book Home" %></h1>
+    <%= link_to (t "devise.home.login"), "#", class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>
+
+<%= social_share_button_tag t "title" %>

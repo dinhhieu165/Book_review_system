@@ -4,7 +4,7 @@ class CreateMarks < ActiveRecord::Migration[5.1]
       t.references :user, foreign_key: true
       t.references :book, foreign_key: true
       t.integer :read_status
-      t.integer :favorite
+      t.boolean :favorite, default: false
 
       t.timestamps
     end

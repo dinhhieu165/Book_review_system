@@ -1,0 +1,57 @@
+<% unless @book.image.url.nil? %>
+  <div class="col-lg-12 text-center padding-top-50">
+    <%= image_tag @book.image.url, class: "book-cover-image-size" %>
+  </div>
+<% end %>
+<%= form_for(@book, html: {multipart: true},
+  url: path) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="col-lg-12 padding-0 margin-top-100">
+    <div class="col-lg-6">
+      <%= f.label :category_id, t("admin.books.new.categories") %>
+      <%= f.select :category_id, Category.all.collect{|category| [category.name, category.id]}, class: "form-control" %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :author, t("admin.books.new.authors") %>
+      <%= f.text_field :author, class: "form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-12 padding-0 padding-top-20">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="col-lg-12 padding-0 padding-top-20">
+    <div class="col-lg-6">
+      <%= f.label :number_of_pages %>
+      <%= f.text_field :number_of_pages, class: "form-control" %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :image %>
+      <%= f.file_field :image,
+        accept: "image/jpeg, image/gif, image/png, image/jpg" %>
+    </div>
+  </div>
+  <div class="col-lg-12 padding-0 padding-top-20">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 10, class: "form-control" %>
+  </div>
+  <div class="col-lg-12 padding-0 padding-top-20">
+    <div class="col-lg-6">
+      <%= f.label :price %>
+      <%= f.text_field :price, class: "form-control" %>
+    </div>
+    <div class="col-lg-6">
+      <%= f.label :publish_date %>
+      <div class="input-group date form_date col-lg-12">
+         <%= f.date_select :publish_date, {order: [:month, :day, :year], start_year: 1980, end_year: 2018 }, class: "form-control" %>
+         <span class="input-group-addon">
+           <span class="glyphicon glyphicon-calendar"></span>
+         </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12 padding-0 padding-top-20 text-center">
+    <%= f.submit t("admin.books.new.submit"),
+      class: "btn btn-primary padding-20 box-shadow" %>
+  </div>
+<% end %>

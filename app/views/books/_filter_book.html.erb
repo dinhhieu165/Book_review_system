@@ -1,0 +1,18 @@
+<h3 class="menu-left-header text-center">
+  <label class="margin-0">
+    <%= link_to t("books.menu_left.category"), books_path %>
+  </label>
+</h3>
+<ul class="menu-left">
+  <%= form_tag("", method: "get") do %>
+    <%= hidden_field_tag :books_filter, Settings.books_filter[:category] %>
+    <% @categories.each do |category| %>
+      <li>
+        <%= label_tag "#{Settings.books_filter[:category]}_#{category.id}",
+          category.name, class: "books-data-filter" %>
+        <%= radio_button_tag Settings.books_filter[:category], category.id,
+          false, class:"display-none", onChange: "changeDataFilter(this)" %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

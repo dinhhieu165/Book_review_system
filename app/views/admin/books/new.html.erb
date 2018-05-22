@@ -1,0 +1,13 @@
+<%= provide :title, t("admin.books.new.title") %>
+<div id="books">
+  <div class="row">
+    <div class="col-lg-offset-1 col-lg-10 padding-top-50">
+      <div class="col-lg-12">
+        <h1 class="text-center title-function">
+          <%= t "admin.books.new.title" %>
+        </h1>
+      </div>
+      <%= render "form", path: admin_books_path %>
+    </div>
+  </div>
+</div>

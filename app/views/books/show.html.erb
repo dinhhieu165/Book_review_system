@@ -1,0 +1,82 @@
+<div id="books">
+  <div class="row">
+    <div class="col-md-2 padding-2">
+      <span class="book-show-price">
+        <%= image_tag @book.image,
+          class: "book-item-information" %>
+      </span>
+    </div>
+    <div class="col-md-10 book-show">
+      <div class="col-lg-12 padding-2">
+        <h4 class="margin-0 book-show-title">
+          <%= @book.title %>
+        </h4>
+      </div>
+      <div class="col-lg-12 padding-2">
+        <span class="book-show-price">
+          <%= t "books.show.price" %> : <%= @book.price %>
+        </span>
+      </div>
+      <div class="col-lg-12 padding-2">
+        <span>
+          <%= @book.publish_date %>
+          <%= button_tag class: "book-show-btn-request",
+            disabled: current_user.has_requested(@book.id),
+            onClick: "userRequest(#{current_user.id}, #{@book.id},
+              '#{t "books.show.has_requested"}',
+              '#{t "books.show.request_failed"}')" do %>
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <%= t "books.show.request_to_buy" %>
+          <% end %>
+          <% if current_user.has_requested @book.id %>
+            <span><%= t "books.show.has_requested" %></span>
+          <% end %>
+        </span>
+      </div>
+      <div class="col-lg-12 padding-2">
+        Quality: <%= rating_for @book, "quality", star: 5%>
+      </div>
+      <div class="col-lg-12 padding-2">
+      </div>
+      <div class="col-lg-12 padding-2">
+        <%= link_to t("books.book_infomation.reviews"), book_path(@book) %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#description" aria-controls="description"
+          role ="tab" data-toggle="tab">
+            <%= t "book.book_infomation.description" %>
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#review" aria-controls="review"
+          role="tab" data-toggle="tab">
+            <%= t "book.book_infomation.review" %>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="description">
+        <%= @book.description %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="review">
+        <%= form_for(@review, url: reviews_path) do |f| %>
+          <li>
+            <%= f.label t("books.book_infomation.write_review") %><br>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :book_id, value: @book.id %>
+            <%= f.label "Title" %>
+            <%= f.text_field :title, class: "form-control" %>
+            <%= f.label "Content" %>
+            <%= f.text_area :content, class: "form-control" %>
+            <%= f.submit t("books.book_infomation.continue"), class: "btn btn-primary" %>
+          </li>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= social_share_button_tag @book.title %>

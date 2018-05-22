@@ -1,0 +1,25 @@
+<% comments.each do |comments| %>
+	<div class="review-section well" id="comment-<%= comment.id %>">
+		<div class="row">
+			<div class="col-md-4 user-review">
+				<div class="bold">
+					<%= gravatar_for @user, {size: Settings.avatar.size} %>
+					<h4><%= comment.user.name %></h4>
+				</div><br>
+				<i><%= comment.updated_at.strftime("%d-%m-%y") %>&nbsp</i>
+				<i><%= time_ago_in_words(comment.updated_at) %>ago</i>
+			</div>
+			<div class="col-md-8">
+				<div class="comment-content">
+					<%= comment.content %>
+				</div>
+			</div>
+			<% if current_user %>
+				<% if current_user == comment.user || current_user.admin? %>
+					<span class="delete_review" onclick="delete_comment(this)" id="<%= comment.id%>"><i class="fa fa-times" aria-hidden="true"></i></span>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
+<%= paginate comments %>

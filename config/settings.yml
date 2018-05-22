@@ -1,0 +1,31 @@
+per_page: 10
+value_one: 1
+books_per_row: 4
+books_filter: {category: "of_category"}
+size_avatar: 50
+activity:
+  action_type:
+    follow_user: 0
+    followed_by_user: 1
+    mark_read: 2
+    mark_reading: 3
+    mark_favorite: 4
+    write_review: 5
+    write_comment: 6
+avatar:
+  size: 46
+  large_size: 100
+role: {admin: "admin", user: "user"}
+default_sort: "created_at desc"
+mark_status:
+  no_status: 0
+  reading: 1
+  read: 2
+requests:
+  status: {waiting: "waiting", approved: "approved", rejected: "rejected"}
+  status_post: {approve: 1, rejecte: 2}
+mailer:
+  address: "smtp.gmail.com"
+  port: "587"
+  authentication: "plain"
+host: "localhost:3000"

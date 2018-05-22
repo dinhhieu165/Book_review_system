@@ -1,33 +1,158 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  books:
+    index:
+      title: "All Books"
+      btn_search: "Search"
+      btn_request: "Request by book"
+    menu_left:
+      category: "Category"
+      author: "Author"
+      publish_date: "Publisher"
+      language: "Language"
+    book_infomation:
+      not_found: "Not found book"
+      description: "Description"
+      review: "Review"
+      write_review: "Write a review"
+      your_review: "Your Review:"
+      name: "Your Name:"
+      rate: "Rating:"
+      bad: "Bad"
+      good: "Good"
+      continue: "Continue"
+      reviews: "reviews"
+      comment: "Comment"
+    show:
+      price: "Price"
+      request_to_buy: "Request to buy"
+      has_requested: "(You has requested)"
+      request_failed: "(Your request has error)"
+  requests:
+    index:
+      title: "Request Buy Book"
+      btn_search: "Search"
+      numbers: "Numbers"
+      user_name: "Username"
+      book_title: "Book Title"
+      created_at: "Created_at"
+      status: "Status"
+      cancel: "Cancel"
+      confirm_delete: "Are you sure to delete it ?"
+      destroy_success: "Request has been cancel"
+      destroy_failed: "Has error when you try cancel request"
+  activity:
+    title: "New activities"
+    time_ago: "%{time} ago"
+    content:
+      follow_user: "follows \"%{name}\""
+      followed_by_user: "is followed by \"%{name}\""
+      mark_read: "marked the book named \"%{name}\" as read"
+      mark_reading: "marked the book named \"%{name}\" as reading"
+      mark_favorite: "marked the book named \"%{name}\" as favorite"
+      write_review: "wrote a review to the book named \"%{name}\""
+      write_comment: "commented to a review in the book named\"%{name}\""
+  comment:
+    write_comment: "Write a comment!"
+    bt_comment: "Comment"
+    commented: "Commented!"
+    post: "post"
+    ago: "ago"
+    edit: "Edit"
+    delete: "Delete"
+    not_delete: "Not delete"
+    confirm: "You sure?"
+
+  users:
+    page_title: "Framgia Book System"
+    title: "All Users"
+    exists_user: "Not user"
+    search_text: "search"
+    bt_search: "Search"
+    favorite_book: "Favorite books"
+    reading_history: "Reading history"
+  admin:
+    search: "Search"
+    books:
+      index:
+        title: "Framgia Book List"
+        btn_add_book: "Add Book"
+        numbers: "Numbers"
+        cover_image: "Cover Image"
+        title: "Title"
+        is_in_library: "Is In Library"
+        created_at: "Created At"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete: "Are you sure to delete it ?"
+      new:
+        title: "Create New Book"
+        submit: "Submit"
+        categories: "Categories"
+        authors: "Authors"
+        publishers: "Publishers"
+        languages: "Languages"
+      edit:
+        title: "Edit Book"
+        success: "Edit book success !"
+        failed: "Edit book failed !"
+      destroy:
+        success: "Book is deleted success!"
+        failed: "Has error when try to deleted this book!"
+    requests:
+      index:
+        title: "Framgia Request List"
+        user: "Username"
+        book: "Book title"
+        status: "Status"
+        created_at: "Created at"
+        approve: "Approve"
+        reject: "Reject"
+    publishers:
+      new:
+        title: "New publisher"
+        flash:
+          error_create: "Errors occured while creating new publisher, please try
+           again!"
+          success_create: "You have successfully created a new publisher!"
+      form:
+        submit_button: "Submit"
+      index:
+        title: "Publishers List"
+        btn_add_publisher: "Add publisher"
+        numbers: "Numbers"
+        publisher_name: "Name"
+        publisher_address: "Address"
+        publisher_phone_number: "Phone number"
+        created_at: "Created at"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete: "Are you sure to delete it?"
+      edit:
+        title: "Edit publisher"
+        success: "Edit publisher success!"
+        failed: "Edit publisher failed!"
+      destroy:
+        success: "Publisher is deleted successfully!"
+        failed: "Has error when try to deleted this publisher!"
+    categories:
+      new:
+        title: "New Category"
+        submit: "Submit"
+        create_success: "Create category success"
+        create_failed: "Has error when create new category"
+      index:
+        title: "Categories List"
+        btn_add_category: "Add category"
+        numbers: "Numbers"
+        category_name: "Category name"
+        created_at: "Created at"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete: "Are you sure to delete it?"
+      edit:
+        title: "Edit category"
+        success: "Edit category success!"
+        failed: "Edit category failed!"
+      destroy:
+        success: "Category is deleted successfully!"
+        failed: "Has error when try to deleted this category!"

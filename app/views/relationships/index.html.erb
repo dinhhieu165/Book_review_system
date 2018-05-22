@@ -1,0 +1,19 @@
+<% provide :title, t("follow.follow_title") %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1><%= link_to @user.name, @user %></h1>
+      <%= render "shared/stats" %>
+      <%= gravatar_for @user, {size: Settings.avatar.large_size} %>
+    </section>
+  </aside>
+  <div class="col-md-4">
+    <h3><%= t "follow.follow_title" %></h3>
+    <% @users.each do |followings| %>
+      <div>
+        <%= gravatar_for @user, {size: Settings.avatar.large_size} %>
+        <%= link_to followings.name, followings %>
+      </div>
+    <% end %>
+  </div>
+</div>

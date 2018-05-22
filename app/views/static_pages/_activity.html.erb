@@ -1,0 +1,31 @@
+<div class="activity_item_wrapper">
+  <div class="poster_info_area padding_5px">
+    <div class="avatar_area float_left">
+      <%= link_to activity.user do %>
+        <%= gravatar_for activity.user,
+          {size: Settings.avatar.size, classes: "gravatar img-circle"} %>
+      <% end %>
+    </div>
+    <div class="poster_content_area">
+      <%= link_to activity.user do %>
+        <h3><%= activity.user.name %></h3>
+      <% end %>
+      <span>
+        <%= t "activity.time_ago",
+          time: time_ago_in_words(activity.created_at) %>
+      </span>
+    </div>
+  </div>
+  <div class="activity_content_area">
+    <% if activity.is_target_book? %>
+      <%= link_to activity.target_book do %>
+        <%= image_tag("#{activity.target_book.cover_image_name}",
+          class: "book_cover") %>
+      <% end %>
+    <% end %>
+    <div class="activity_text">
+      <%= link_to activity.user.name, activity.user %>
+      <%= activity.activity_text %>
+    </div>
+  </div>
+</div>

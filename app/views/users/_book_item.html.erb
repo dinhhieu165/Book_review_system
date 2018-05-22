@@ -1,0 +1,8 @@
+<div class="book_item_wrapper">
+  <div class="cover_image">
+    <%= link_to mark.book do %>
+      <%= image_tag "#{mark.book.image.url}",
+        title: mark.book.title %>
+    <% end %>
+  </div>
+</div>

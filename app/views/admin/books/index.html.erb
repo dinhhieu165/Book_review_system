@@ -1,0 +1,89 @@
+<%= provide :title, t("admin.books.index.title") %>
+<div id="books">
+  <div class="row padding-top-50">
+    <div class="col-lg-12">
+      <%= link_to new_admin_book_path do %>
+        <%= button_tag t("admin.books.index.btn_add_book"),
+          class: "btn btn-primary box-shadow" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row padding-top-50">
+    <div class="col-lg-12 book-form-search">
+      <%= search_form_for @search, url: admin_books_path do |f| %>
+        <%= f.condition_fields do |condition| %>
+          <div class="col-lg-3">
+            <%= condition.attribute_fields do |attribute| %>
+              <%= attribute.attribute_select associations: [:category] %>
+            <% end %>
+          </div>
+          <div class="col-lg-3">
+            <%= condition.predicate_select %>
+          </div>
+          <div class="col-lg-3">
+            <%= condition.value_fields do |value| %>
+              <%= value.text_field :value %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="col-lg-3">
+          <%= f.submit t("admin.search"),
+            class: "btn btn-default books-btn-search" %>
+        </div>
+        <div class="col-lg-12 padding-0">
+          <div class="col-lg-5 padding-0">
+            <%= f.sort_fields do |sort| %>
+              <%= sort.sort_select %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row padding-top-50">
+    <div class="col-lg-12">
+      <table class="table table-bordered book-table">
+        <thead>
+          <tr>
+            <th class="width-5"><%= t "admin.books.index.numbers" %></th>
+            <th class="width-10"><%= t "admin.books.index.cover_image" %></th>
+            <th class="width-10"><%= t "admin.books.index.title" %></th>
+            <th class="width-10"><%= t "books.menu_left.author" %></th>
+            <th class="width-10"><%= t "books.menu_left.category" %></th>
+            <th class="width-10"><%= t "books.menu_left.publish_date" %></th>
+            <th class="width-10"><%= t "admin.books.index.created_at" %></th>
+            <th class="width-10"><%= t "admin.books.index.edit" %></th>
+            <th class="width-10"><%= t "admin.books.index.delete" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each_with_index do |book, index| %>
+            <tr>
+              <td><%= increase_one index %></td>
+              <td><%= image_tag book.image.url,
+                class: "resize_image" %></td>
+              <td><%= book.title %></td>
+              <td><%= book.author %></td>
+              <td><%= book.category.name %></td>
+              <td><%= book.publish_date %></td>
+              <td><%= book.created_at %></td>
+              <td>
+                <%= link_to edit_admin_book_path(book),
+                  class: "btn btn-info font-size-20" do %>
+                  <span class="glyphicon glyphicon-edit"></span>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to admin_book_path(book), method: :delete,
+                  data: {confirm: t("admin.books.index.confirm_delete")},
+                  class: "btn btn-danger font-size-20" do %>
+                  <span class="glyphicon glyphicon-trash"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
